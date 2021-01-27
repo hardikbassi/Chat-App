@@ -37,7 +37,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const room = 'swift';
+
+      const room = prompt(`Enter room: `);
       const socket = io('/tech');
 
       
@@ -52,6 +53,9 @@
           socket.emit('join', {room: room})
       });
       socket.on('message', (msg) =>{
+        $('#messages').append($('<li>').text(msg));
+      })
+      socket.on('allmes', (msg) =>{
         $('#messages').append($('<li>').text(msg));
       })
     </script>
