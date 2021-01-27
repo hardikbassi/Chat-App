@@ -10,17 +10,13 @@ server.listen(port, () => {
 });
 
 app.get('/', (req, res) =>{
-    res.sendFile(__dirname + '/public/index.html')
+    res.sendFile(__dirname + '/public/Swift.html')
 });
-app.get('/javascript', (req, res) =>{
-    res.sendFile(__dirname + '/public/Javascript.html')
-});
+
 app.get('/swift', (req, res) =>{
     res.sendFile(__dirname + '/public/Swift.html')
 });
-app.get('/python', (req, res) =>{
-    res.sendFile(__dirname + '/public/Python.html')
-});
+
 
 
 
@@ -32,7 +28,7 @@ tech.on('connection', (socket) =>{
     console.log('user connected');
     socket.on('join', (data) =>{
         socket.join(data.room);
-
+        tech.emit('message', `new user joined the ${data.room} room`);
     })
     socket.on('message', (data) => {
         console.log('message: ' + data.msg)
@@ -41,6 +37,10 @@ tech.on('connection', (socket) =>{
     socket.on('disconnect', () => {
         console.log('user disconnected');
         tech.emit('message', 'user disconnected')
+    })
+    socket.on('allmes', (msg) => {
+        console.log(`message: ${msg}`)
+        tech.emit('message', `message to entire tech namespace: ${msg}`)
     })
 })
 //tech namespace
