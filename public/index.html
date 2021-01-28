@@ -3,16 +3,22 @@
 
 <head>
   <title>Chatter</title>
-  <link rel="favicon" href="favicon.png" type="image/png">
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="favicon" type="image/png" href="favicon.png"/>
   <style>
+    form {padding: 20px; position:fixed; bottom: 0; width: 100%; padding-right: 50px;}
+      #messages {list-style-type: none; margin: 0; padding: 0; width: 100%;}
+      #messages li {padding: 5px 10px;}
+      #messages li:nth-child(odd) {background: #eee;}
     h1{
       font-weight: bolder; 
       font-size: 100px;
       font-family: Arial, "Helvetica Bold", Helvetica, sans-serif;
+     
 
     }
     p{
@@ -20,29 +26,50 @@
       font-size: 30px;
       font-family: Arial, "Helvetica Bold", Helvetica, sans-serif;
     }
+    #heading{
+      background-image: url('http://localhost:3000/Presentation1.jpg');
+    width: 100%;
+    height: 550px;
+    background-size: cover;
+   
+    }
+    #wedding{
+      top: 200px;
+      text-align: left;
+
+    }
+    button{
+      background-color: black;
+      color: white;
+      border: transparent;
+      border-radius: 6px;
+      font-family: Arial, Helvetica, "Helvetia Nueu", sans-serif;
+      width: 100px;
+      text-align:  center;
+      height: 50px;
+    }
+    #hide{
+      color: white;
+    }
     
   </style>
 </head>
 
 <body>
-  <div class="container">
-  
-      
-        <h1>Tech space chatter</h1>
-        <p>Select which room you'd like to join below.</p>
-      
+  <div id="heading">
+      <br>
+      <br>
+      <br>
+      <br>
+      <div id="wedding" class="container-fluid">     
+        <h1>PatsApp</h1>
+        <p>Where chatting is easy like 123</p>
+        <a href="/swift"><button>Get Started</button></a>
+      </div>
+
   </div>
   
-  <div class="container-fluid">
-    
-    <div class="row">
-      <ul class="list-group">
-        <a href="./javascript" style="color: black;"><li class="list-group-item">Javascript</li></a>
-        <a href="./swift" style="color: black;"><li class="list-group-item">Swift</li></a>
-        <a href="./python" style="color: black;"><li class="list-group-item">Python</li></a>
-      </ul>
-    </div>
-  </div>
+  
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
@@ -52,6 +79,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
     crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  
 
 </body>
 
