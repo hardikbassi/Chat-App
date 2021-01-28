@@ -10,13 +10,18 @@ server.listen(port, () => {
 });
 
 app.get('/', (req, res) =>{
-    res.sendFile(__dirname + '/public/Swift.html')
+    res.sendFile(__dirname + '/public/index.html')
 });
 
 app.get('/swift', (req, res) =>{
     res.sendFile(__dirname + '/public/Swift.html')
 });
-
+app.get('/Presentation1.jpg', (req, res) =>{
+    res.sendFile(__dirname + '/public/Presentation1.jpg')
+})
+app.get('/favicon.png', (req, res) =>{
+    res.sendFile(__dirname + '/public/favicon.png')
+})
 
 
 
