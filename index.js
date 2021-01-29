@@ -10,20 +10,21 @@ server.listen(port, () => {
 });
 
 app.get('/', (req, res) =>{
-    res.sendFile(__dirname + '/public/index.html')
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/swift', (req, res) =>{
-    res.sendFile(__dirname + '/public/Swift.html')
+    res.sendFile(__dirname + '/public/Swift.html');
 });
 app.get('/Presentation1.jpg', (req, res) =>{
-    res.sendFile(__dirname + '/public/Presentation1.jpg')
+    res.sendFile(__dirname + '/public/Presentation1.jpg');
 })
-app.get('/favicon.png', (req, res) =>{
-    res.sendFile(__dirname + '/public/favicon.png')
+app.get('/favicon.ico', (req, res) =>{
+    res.sendFile(__dirname + '/public/favicon.ico');
 })
-
-
+app.get('/user_guide', (req, res) => {
+    res.sendFile(__dirname + '/Presentation1.pdf');
+})
 
 //tech namespace
 const tech = io.of('/tech');
@@ -33,11 +34,11 @@ tech.on('connection', (socket) =>{
     console.log('user connected');
     socket.on('join', (data) =>{
         socket.join(data.room);
-        tech.emit('message', `new user joined the ${data.room} room`);
+        socket.emit('message', `new user joined ${data.room}`)
     })
     socket.on('message', (data) => {
         console.log('message: ' + data.msg)
-        tech.in(data.room).emit('message', data.msg);
+        tech.in(data.room).emit('message', `${data.msg}`);
     })
     socket.on('disconnect', () => {
         console.log('user disconnected');
