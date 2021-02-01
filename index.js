@@ -3,7 +3,8 @@ const { response } = require('express');
 const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const port = 5500;
+const port = 3000;
+const user = {};
 
 server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
@@ -25,6 +26,12 @@ app.get('/favicon.ico', (req, res) =>{
 app.get('/user_guide', (req, res) => {
     res.sendFile(__dirname + '/Presentation1.pdf');
 })
+app.get('/sound', (req, res) => {
+    res.sendFile(__dirname + '/public/ting.mp3');
+})
+app.get('/background', (req, res) => {
+    res.sendFile(__dirname + '/public/Background.png');
+})
 
 //tech namespace
 const tech = io.of('/tech');
@@ -33,20 +40,21 @@ const tech = io.of('/tech');
 tech.on('connection', (socket) =>{
     console.log('user connected');
     socket.on('join', (data) =>{
-        socket.join(data.room);
-        socket.emit('message', `new user joined ${data.room}`)
+        socket.join(data.room); 
+        user[socket.id] = data.name;
+        tech.in(data.room).emit('recieve', `new user joined ${data.room}`)
     })
-    socket.on('message', (data) => {
-        console.log('message: ' + data.msg)
-        tech.in(data.room).emit('message', `${data.msg}`);
+    socket.on('send', (data) => {
+        console.log('message: ' + data.msg);
+        tech.in(data.room).emit('recieve', data.msg);
     })
-    socket.on('disconnect', () => {
+    socket.on('disconnect', (room) => {
         console.log('user disconnected');
-        tech.emit('message', 'user disconnected')
+        tech.in(room).emit('recieve', 'user disconnected')
     })
     socket.on('allmes', (msg) => {
         console.log(`message: ${msg}`)
-        tech.emit('message', `message to entire tech namespace: ${msg}`)
+        tech.emit('recieve', `message to entire tech namespace: ${msg}`)
     })
 })
 //tech namespace
