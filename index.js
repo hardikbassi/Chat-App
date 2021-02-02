@@ -3,7 +3,7 @@ const { response } = require('express');
 const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const port = 5500;
+const port = 3000;
 const user = {};
 
 server.listen(port, () => {
@@ -34,27 +34,27 @@ app.get('/background', (req, res) => {
 })
 
 //tech namespace
-const tech = io.of('/tech');
 
 
-tech.on('connection', (socket) =>{
+
+io.on('connection', (socket) =>{
     console.log('user connected');
     socket.on('join', (data) =>{
         socket.join(data.room); 
         user[socket.id] = data.name;
-        tech.in(data.room).emit('recieve', `new user joined ${data.room}`)
+        socket.in(data.room).broadcast.emit('recieve', `new user joined ${data.room}`);
     })
     socket.on('send', (data) => {
         console.log('message: ' + data.msg);
-        tech.in(data.room).emit('recieve', data.msg);
+        socket.in(data.room).broadcast.emit('recieve', data.msg);
     })
     socket.on('disconnect', (room) => {
         console.log('user disconnected');
-        tech.in(room).emit('recieve', 'user disconnected')
+        socket.in(room).broadcast.emit('recieve', 'user disconnected')
     })
     socket.on('allmes', (msg) => {
         console.log(`message: ${msg}`)
-        tech.emit('recieve', `message to entire tech namespace: ${msg}`)
+        socket.emit('recieve', `message to entire tech namespace: ${msg}`)
     })
 })
 //tech namespace
