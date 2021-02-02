@@ -53,7 +53,7 @@
     }
 
     .left {
-      background-color: rgb(68, 98, 145);
+      background-color: blue;
       color: white;
       float: left;
       clear: both;
@@ -71,7 +71,7 @@
       float: right;
       clear: both;
       text-align: right;
-      background-color: rgb(144, 171, 202);
+      background-color: lightgreen;
       color: white;
     }
   </style>
@@ -113,7 +113,7 @@
     var audio = new Audio('/sound');
     const name = prompt(`Enter Name: `)
     const room = prompt(`Enter room: `);
-    const socket = io('/tech');
+    const socket = io();
     const append = (message, position) => {
       const messageElement = document.createElement('div');
       messageElement.innerText = message;
