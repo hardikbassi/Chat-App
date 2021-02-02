@@ -42,7 +42,7 @@ io.on('connection', (socket) =>{
     socket.on('join', (data) =>{
         socket.join(data.room); 
         user[socket.id] = data.name;
-        socket.in(data.room).broadcast.emit('recieve', `new user joined ${data.room}`);
+        socket.in(data.room).broadcast.emit('recieve', `new user ${user[socket.id]} joined ${data.room}`);
     })
     socket.on('send', (data) => {
         console.log('message: ' + data.msg);
